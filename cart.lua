@@ -495,6 +495,10 @@ function patch_lua(lua)
 	end
 
 
+	-- keep the builtins available when shadowing _ENV
+	for k, _ in pairs(api) do
+		lua = "local "..k.." = "..k.."\n" .. lua
+	end
 	-- not strictly required, but should help improve performance
 	lua = "local _ENV = _ENV " .. lua
 
